@@ -1,5 +1,5 @@
 <H1 align="center">
-    A Star is Born
+    A * is Born
 </H1>
 
 
