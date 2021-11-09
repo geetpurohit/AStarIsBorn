@@ -9,7 +9,7 @@ Consider the following problem: an agent in a gridworld has to move from its cur
 target, where the gridworld is not fully known. They are discretizations of terrain into square cells that are either blocked
 or unblocked.
 
-Similar search challenges arise frequently in real-time computer games, such as League of Legends shown below, and robotics.
+Similar search challenges arise frequently in real-time computer games, such as ***League of Legends*** shown below, and robotics.
 To control characters in such games, the player can click on known or unknown terrain, and the game characters then move
 autonomously to the location that the player clicked on. The characters observe the terrain within their limited field of
 view and then remember it for future use but do not know the terrain initially (due to “fog of war”). The same situation
@@ -47,7 +47,7 @@ In this project, I use A* to determine the shortest paths, resulting in Repeated
 cell of the agent toward the target (= forward), resulting in Repeated Forward A*, or from the target toward the current cell
 of the agent (= backward), resulting in Repeated Backward A*. The List of Algorithms I use are:
 
-* Repeated Forward A* 
+### *Repeated Forward A* 
 A* is an informed search algorithm, or a best-first search, meaning that it is formulated in terms of weighted graphs: starting from a specific starting node of a graph, it aims to find a path to the given goal node having the smallest cost (least distance travelled, shortest time, etc.). It does this by maintaining a tree of paths originating at the start node and extending those paths one edge at a time until its termination criterion is satisfied.
 
 At each iteration of its main loop, A* needs to determine which of its paths to extend. It does so based on the cost of the path and an estimate of the cost required to extend the path all the way to the goal. Specifically, A* selects the path that minimizes
@@ -57,9 +57,9 @@ At each iteration of its main loop, A* needs to determine which of its paths to 
 Now, it is important to note that Repeated A* has a g-value g(s) (infinity, initially), which is the length of the shortest path from the start state to state s found
 by the A* search and thus an upper bound on the distance from the start state to state s. Repeated Forward A* needs to break ties to decide which cell to expand next if several cells have the same smallest f-value. It can either break ties in favor of cells with smaller g-values or in favor of cells with larger g-values. This results in a Repeated Forward A* favoring a smaller g-value versus favoring a larger g-value. 
 
-* Repeated Backward A*
+### *Repeated Backward A*
 
-* Adaptive A* 
+### *Adaptive A* 
 Adaptive A* uses A* searches to repeatedly find shortest paths in state spaces with possibly different start states but the
 same goal state where action costs can increase (but not decrease) by arbitrary amounts between A* searches.1 It uses its
 experience with earlier searches in the sequence to speed up the current A* search and run faster than Repeated Forward A*. 
