@@ -1,5 +1,5 @@
 <p align="center">
-    <title> A Star is Born </title>
+    <title>A Star is Born</title>
 </p>
 
 
