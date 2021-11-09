@@ -33,6 +33,7 @@ along a path that satisfies the following three properties:
 2. It is a path that the agent does not know to be blocked and thus assumes to be unblocked, i.e., a presumed unblocked
 path.
 3. It is a shortest such path.
+
 Whenever the agent observes additional blocked cells while it follows its current path, it remembers this information for
 future use. If such cells block its current path, then its current path might no longer be a “shortest presumed-unblocked
 path” from the current cell of the agent to the target. Then, the agent stops moving along its current path, searches for
@@ -57,7 +58,7 @@ by the A* search and thus an upper bound on the distance from the start state to
 
 ### *Repeated Backward A*
 or from the target toward the current cell
-of the agent (= backward), resulting in Repeated Backward A*.
+of the agent (= backward), resulting in Repeated Backward A*. In backward A*, you treat the current position of the robot as the goal and you treat the actual goal as the start position. So, you need to re-compute the manhattan distances because the "goal" changes after each search. Once you get a path from backward A*, you need to reverse it so that the robot can follow it starting from its current position. 
 
 ### *Adaptive A* 
 Adaptive A* uses A* searches to repeatedly find shortest paths in state spaces with possibly different start states but the
@@ -65,4 +66,36 @@ same goal state where action costs can increase (but not decrease) by arbitrary 
 experience with earlier searches in the sequence to speed up the current A* search and run faster than Repeated Forward A*. 
 It first finds the shortest path from the current start state to the goal state according to the current action costs. 
 
+
+# Implementation and Result
+
+I use numPy to generate .txt array files with 1's and 0's based on a certain width and height. The distribution of these 1's and 0's (which means blocked and unblocked) is based on a probability distribution. The probability that a cell is blocked is 0.3. That does not mean that exactly 30% of the cells will be blocked. 
+I go over all my cells, one after the other and at each cell, I toss a coin that has a probability of 0.3 of falling on tail. If the coin falls on tail, then I mark the cell as blocked, otherwise I mark it as open. You move to the next cell, and do the same thing, etc.. At the end, approximately 30% of the cells will be blocked. So, more often than not, I will have a path from a random start to a random goal.
+
+I use a binary heap, which  will ensure that the nodes entered into my frontier are ordered with a fairly inexpensive insert and extraction cost of o(logn). When I am expanding cells and giving them an f value, inserting them into a minheap will guarantee that the nodes are ordered by the minimum f value. This is important when I are trying to assess what the next best node to take is when building the path (in this case it should be the first element in my heap).
+
+Using a grid visualizer, here is a random maze being solved by the Algorithm Adaptive A*. The start and goal locations are randomized, as is the grid:
+
+![Adaptive A Star](https://user-images.githubusercontent.com/68968629/141023654-45dab9f8-d2d6-470b-a684-d867297a91aa.gif)
+
+# Conclusions
+
+* Adaptive A* is faster than repeated A* due to an improved heuristic calculation.
+Adaptive A*’s algorithm considers already visited cells and calculates
+an updated h cost to find goals faster.
+
+* We found Repeated Forward A* faster than Repeated Backward A*. We can
+blame the implementation of our Backward A* for this difference. Our backward
+A* calculates a path from end to start, but will traverse it from start to finish.
+With this, backward A* will traverse and expand to more cells closer to our start
+and this is very counterproductive when compared to Forward A*. Our data
+was derived similarly, through statistically significant amount of environment
+runs.
+
+* After coding both versions, we found it efficient to break ties in favor of higher
+g-values instead of lower ones. This makes sense as utilizing higher g-values
+mean that the agent is moving closer to the goal as it moves further away from
+where it started. Meanwhile, the lower g-values stays closer to the start. Our
+conclusion is derived from the data above, which is ran over 50 individual maze
+environments for statistical significance.
 
