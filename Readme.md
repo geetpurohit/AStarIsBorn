@@ -54,7 +54,7 @@ A* can search either from the current
 cell of the agent toward the target (= forward), resulting in Repeated Forward A*
 
 Now, it is important to note that Repeated A* has a g-value g(s) (infinity, initially), which is the length of the shortest path from the start state to state s found
-by the A* search and thus an upper bound on the distance from the start state to state s. Repeated Forward A* needs to break ties to decide which cell to expand next if several cells have the same smallest f-value. It can either break ties in favor of cells with smaller g-values or in favor of cells with larger g-values. This results in a Repeated Forward A* favoring a smaller g-value versus favoring a larger g-value. 
+by the A* search and thus an upper bound on the distance from the start state to state s. Repeated Forward A* needs to break ties to decide which cell to expand next if several cells have the same smallest f-value. It can either break ties in favor of cells with smaller g-values or in favor of cells with larger g-values. This results in a Repeated Forward A* favoring a smaller g-value versus favoring a larger g-value... 
 
 ### *Repeated Backward A*
 or from the target toward the current cell
