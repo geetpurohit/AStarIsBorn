@@ -1,6 +1,6 @@
-<p align="center">
-    <title>A Star is Born</title>
-</p>
+*<p align="center">
+    A Star is Born
+</p>*
 
 
 # Overview 
